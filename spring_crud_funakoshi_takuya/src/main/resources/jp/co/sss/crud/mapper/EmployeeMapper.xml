@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.sss.crud.mapper.EmployeeMapper">
+
+	<!-- 全件検索 -->
+	<select id="findAll" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT
+		emp_id
+		,emp_name
+		,emp_pass
+		,gender
+		,address
+		,birthday
+		,authority
+		,dept_id
+		FROM
+		employee
+		ORDER BY
+		emp_id
+	</select>
+
+	<!-- emp_idで条件検索 -->
+	<select id="getOne" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT
+		emp_id
+		,emp_name
+		,emp_pass
+		,gender
+		,address
+		,birthday
+		,authority
+		,dept_id
+		FROM
+		employee
+		WHERE
+		emp_id =
+		#{empId}
+	</select>
+
+	<!-- 社員名称検索 -->
+	<select id="enpNameSeach"
+		resultType="jp.co.sss.crud.entity.Employee">
+		SELECT
+		emp_id
+		,emp_name
+		,gender
+		,address
+		,birthday
+		,authority
+		,dept_id
+		FROM
+		employee
+		WHERE emp_name LIKE '%${empName}%'
+	</select>
+
+	<!-- dept_idで条件検索 -->
+	<select id="getDept" resultType="jp.co.sss.crud.entity.Employee">
+		SELECT
+		emp_id
+		,emp_name
+		,gender
+		,address
+		,birthday
+		,authority
+		,dept_id
+		FROM
+		employee
+		WHERE
+		dept_id =
+		#{deptId}
+	</select>
+
+	<!-- 登録のSQL文を実行 -->
+	<insert id="insert"
+		parameterType="jp.co.sss.crud.entity.Employee">
+		INSERT INTO employee (
+		emp_id
+		,emp_pass
+		,emp_name
+		,gender
+		,address
+		,birthday
+		,authority
+		,dept_id
+		) VALUES (
+		seq_emp.NEXTVAL
+		, #{empPass}
+		, #{empName}
+		, #{gender}
+		, #{address}
+		, #{birthday}
+		, #{authority}
+		, #{deptId}
+		)
+		<selectKey keyProperty="empId"
+			resultType="java.lang.Integer" order="AFTER">
+			SELECT seq_emp.CURRVAL
+			FROM dual
+		</selectKey>
+	</insert>
+	
+	<!-- 変更のSQL文を実行 -->
+	<update id="update"
+		parameterType="jp.co.sss.crud.entity.Employee">
+		UPDATE employee
+		SET
+		emp_pass = #{empPass}
+		,emp_name = #{empName}
+		,gender = #{gender}
+		,address = #{address}
+		,birthday = #{birthday}
+		,authority = #{authority}
+		,dept_id = #{deptId}
+		WHERE
+		emp_id = #{empId}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM employee WHERE emp_id = #{empId}
+	</delete>
+
+</mapper>

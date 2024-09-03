@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+<configuration> 
+    <settings> 
+        <!-- スネークケースをキャメルケースに変換 --> 
+        <setting name="mapUnderscoreToCamelCase" value="true"/> 
+ <!-- SQL の結果が返ってくるまでの待ち時間 --> 
+        <setting name="defaultStatementTimeout" value="90"/> 
+    </settings> 
+</configuration>
